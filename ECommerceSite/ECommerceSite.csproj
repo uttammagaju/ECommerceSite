@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ECommereceSiteData\ECommereceSiteData.csproj" />
+    <ProjectReference Include="..\ECommereceSiteModels\ECommereceSiteModels.csproj" />
   </ItemGroup>
 
 </Project>

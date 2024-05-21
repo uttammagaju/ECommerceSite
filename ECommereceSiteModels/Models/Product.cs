@@ -19,7 +19,7 @@ namespace ECommereceSiteModels.Models
 
         public string discountRate {  get; set; }
 
-        [Required]
+       
         public string ImageUrl {  get; set; }
 
         public int quantity { get; set; }

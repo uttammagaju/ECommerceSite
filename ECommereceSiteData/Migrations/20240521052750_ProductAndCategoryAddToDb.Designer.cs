@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommereceSiteData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240520052625_init")]
-    partial class init
+    [Migration("20240521052750_ProductAndCategoryAddToDb")]
+    partial class ProductAndCategoryAddToDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
