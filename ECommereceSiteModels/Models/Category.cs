@@ -9,6 +9,6 @@ namespace ECommereceSiteModels.Models
 
         [Required]
         public string CategoryName { get; set; }
-        public string ImageUrl {  get; set; }
+        public string ImageUrl {  get; set; } = string.Empty;
     }
 }

@@ -75,6 +75,14 @@ namespace ECommerceSite.Controllers
             List<Category> objFromDb = _unitOfWork.Category.GetAll().ToList();
             return Json(new {data = objFromDb});
         }
+        public IActionResult Delete(int id)
+        {
+            var categoryToBeDelete = _unitOfWork.Category.Get(u=>u.Id == id);
+            _unitOfWork.Category.Remove(categoryToBeDelete);
+            _unitOfWork.Save();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
+            return Json(new {data = categoryToBeDelete});
+        }
         #endregion
     }
 

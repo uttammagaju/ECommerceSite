@@ -22,24 +22,7 @@
                         <th>Option</th>
                     </tr>
                 </thead>
-                @* <tbody>
-                    @foreach (var obj in Model)
-                    {
-                        <tr>
-                            <td>@obj.Id</td>
-                            <td>@obj.CategoryName</td>
-                            <td>
-                                <img src="@obj.ImageUrl" alt="Category Image" style="width: 100px; height: auto;" />
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-outline-primary">Edit</a>
-                                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-outline-danger">Delete</a>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                </tbody> *@
+                
             </table>
         </div>
     </div>
