@@ -10,10 +10,12 @@ namespace ECommerceSite.Controllers
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CategoryController(IUnitOfWork unitOfWork)
+        public CategoryController(IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -28,16 +30,35 @@ namespace ECommerceSite.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category emodel)
+        public IActionResult Create(Category emodel, IFormFile img)
         {
-            if (emodel.ImageUrl == null) 
-            {
-                emodel.ImageUrl = ""; 
+            string DataFromDB = _unitOfWork.Category.Get(u => u.CategoryName == emodel.CategoryName).ToString();
+            if (DataFromDB != null) { 
+                return RedirectToAction("Index");
             }
-
-            _unitOfWork.Category.Add(emodel);
-            _unitOfWork.Save();
-            return RedirectToAction(nameof(Index));
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    if (img != null && img.Length > 0)
+                    {
+                        string filename = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+                        string categoryPath = Path.Combine(wwwRootPath, @"images\category\");
+                        //var oldImagePath = Path.Combine(wwwRootPath, emodel.ImageUrl.TrimStart('\\'));
+                        using (var fileStream = new FileStream(Path.Combine(categoryPath, filename), FileMode.Create))
+                        {
+                            img.CopyTo(fileStream);
+                        }
+                        emodel.ImageUrl = @"\images\category\" + filename;
+                    }
+                }
+                _unitOfWork.Category.Add(emodel);
+                _unitOfWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            
+            
         }
         [HttpGet]
         public IActionResult Edit(int? id)
@@ -54,19 +75,76 @@ namespace ECommerceSite.Controllers
             return View(categoryFromDb);
         }
         [HttpPost]
-        public IActionResult Edit(Category model)
+        public IActionResult Edit(Category model, IFormFile? img)
         {
-            if ((ModelState.IsValid))
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            if (img != null && img.Length > 0)
             {
+                string filename = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+                string categoryPath = Path.Combine(wwwRootPath, @"images\category\");
+
+                if (ModelState.IsValid)
+                {
+                    // Update photo handling (combined and improved):
+
+                    // Delete the old image (error handling included)
+                    string oldImagePath = Path.Combine(wwwRootPath, model.ImageUrl.TrimStart('\\'));
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        try
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "Error deleting old image: " + ex.Message);
+                            return View(model); // Re-render view with error message
+                        }
+                    }
+
+                    // Save the new image (error handling included)
+                    using (var fileStream = new FileStream(Path.Combine(categoryPath, filename), FileMode.Create))
+                    {
+                        try
+                        {
+                            img.CopyTo(fileStream);
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("", "Error saving new image: " + ex.Message);
+                            return View(model); // Re-render view with error message
+                        }
+                    }
+
+                    // Update model's ImageUrl with the new path
+                    model.ImageUrl = @"\images\category\" + filename;
+                
+
+                // Update category in database (assuming _unitOfWork.Category is a repository):
                 _unitOfWork.Category.Update(model);
-                _unitOfWork.Save();
+                    
+                    _unitOfWork.Save();
+
+                return RedirectToAction("Index");
             }
-            if(model == null)
+            else
             {
-                return NotFound();
-            }
+                filename = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+                categoryPath = Path.Combine(wwwRootPath, @"images\category\");
+               using (var fileStream = new FileStream(Path.Combine(categoryPath, filename), FileMode.Create))
+                    {
+                       img.CopyTo(fileStream);
+                    }
+                    model.ImageUrl = @"\images\category\" + filename;
+                    _unitOfWork.Category.Update(model);
+                    _unitOfWork.Save();
+                    return RedirectToAction("Index");
+                }
+        }
+            // Re-render the view with validation errors (if any)
             return View(model);
         }
+
 
         #region API CALLS
         [HttpGet]
@@ -77,7 +155,25 @@ namespace ECommerceSite.Controllers
         }
         public IActionResult Delete(int id)
         {
+            
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            
+            //if (System.IO.File.Exists(oldImagePath))
+            //{
+            //    try
+            //    {
+            //        System.IO.File.Delete(oldImagePath);
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        ModelState.AddModelError("", "Error deleting old image: " + ex.Message);
+            //        return View(model); // Re-render view with error message
+            //    }
+            //}
             var categoryToBeDelete = _unitOfWork.Category.Get(u=>u.Id == id);
+            string patsh = wwwRootPath + categoryToBeDelete.ImageUrl; 
+           // string oldImagePath = Path.Combine(wwwRootPath, categoryToBeDelete.ImageUrl);
+            System.IO.File.Delete(patsh);
             _unitOfWork.Category.Remove(categoryToBeDelete);
             _unitOfWork.Save();
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
