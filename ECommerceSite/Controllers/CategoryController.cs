@@ -32,7 +32,7 @@ namespace ECommerceSite.Controllers
         [HttpPost]
         public IActionResult Create(Category emodel, IFormFile img)
         {
-            string DataFromDB = _unitOfWork.Category.Get(u => u.CategoryName == emodel.CategoryName).ToString();
+            var DataFromDB = _unitOfWork.Category.Get(u => u.CategoryName == emodel.CategoryName);
             if (DataFromDB != null) { 
                 return RedirectToAction("Index");
             }
@@ -171,9 +171,9 @@ namespace ECommerceSite.Controllers
             //    }
             //}
             var categoryToBeDelete = _unitOfWork.Category.Get(u=>u.Id == id);
-            string patsh = wwwRootPath + categoryToBeDelete.ImageUrl; 
+            string path = wwwRootPath + categoryToBeDelete.ImageUrl; 
            // string oldImagePath = Path.Combine(wwwRootPath, categoryToBeDelete.ImageUrl);
-            System.IO.File.Delete(patsh);
+            System.IO.File.Delete(path);
             _unitOfWork.Category.Remove(categoryToBeDelete);
             _unitOfWork.Save();
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
