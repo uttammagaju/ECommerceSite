@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\category\" />
+    <Folder Include="wwwroot\images\homeSlider\" />
+    <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
 </Project>

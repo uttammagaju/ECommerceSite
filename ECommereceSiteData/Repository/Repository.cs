@@ -27,11 +27,28 @@ namespace ECommereceSiteData.Repository
         }
 
         // retrieves a single record from a data source, likely a database table.
-        public T Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
-            IQueryable<T> query = dbSet;
-            //IQueryable<T>: This interface represents a sequence of elements of type T that can be queried further.
+            IQueryable<T> query;
+            if (tracked)
+            {
+                query = dbSet;
+
+            }
+            else
+            {
+                query = dbSet.AsNoTracking();
+
+            }
             query = query.Where(filter);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.FirstOrDefault();
         }
 
@@ -40,10 +57,17 @@ namespace ECommereceSiteData.Repository
         //IEnumerable<T> represents an interface that allows you to iterate over the
         //elements in the collection, but it doesn't guarantee any specific order or
         //the ability to modify the elements.
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
-            //retrieves all elements from the query and converts them to a list.
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
             return query.ToList();
         }
 

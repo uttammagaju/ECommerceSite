@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommereceSiteModels.Models
 {
@@ -9,6 +10,7 @@ namespace ECommereceSiteModels.Models
 
         [Required]
         public string CategoryName { get; set; }
+        [ValidateNever]
         public string ImageUrl {  get; set; } = string.Empty;
     }
 }

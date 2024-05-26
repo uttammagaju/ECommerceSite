@@ -1,0 +1,38 @@
+﻿@model List<Product>
+
+<div class="card shadow border-0 mt-4 ">
+    <div class="card-header bg-primary m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">Product List</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-4">
+        <div class="col-12 text-center d-flex justify-content-end mb-3">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-outline-primary">Add New Product</a>
+        </div>
+        <div class="row pb-3">
+            <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Discounted Rate</th>
+                        <th>Image Url</th>
+                        <th>Quantity</th>
+                        <th>Category</th>
+                        <th>Option</th>
+                    </tr>
+                </thead>
+                
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script> 
+        }

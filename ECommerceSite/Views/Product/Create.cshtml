@@ -1,0 +1,58 @@
+﻿@model Product
+
+<div class="card shadow border-0 mt-4 col-8 m-auto">
+    <div class="card-header bg-primary m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white">Create Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body py-2">
+        <form asp-action="Create" method="post" class="row" enctype="multipart/form-data">
+            <div class="mb-3 row">
+                <label asp-for="ProductName" class="ms-2">Product Name</label>
+                <input asp-for="ProductName" class="form-control border-0 shadow" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="Description" class="ms-2">Description</label>
+                <input asp-for="Description" class="form-control border-0 shadow" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="Price" class="ms-2">Price</label>
+                <input asp-for="Price" class="form-control border-0 shadow" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="discountRate" class="ms-2">Discounted Rate</label>
+                <input asp-for="discountRate" class="form-control border-0 shadow" />
+                <span asp-validation-for="discountRate" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="ImageUrl" class="ms-2">Image Url</label>
+                <input type="file" name="img" class="form-control border-0 shadow" />
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="@Model.CategoryId" class="ms-2"></label>
+               <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select box-shadow">
+                   <option disabled selected >--Select Category--</option>
+               </select>
+               <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-outline-primary form-control">Create</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary form-control">Back To List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
