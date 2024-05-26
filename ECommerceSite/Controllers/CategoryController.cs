@@ -21,7 +21,8 @@ namespace ECommerceSite.Controllers
         public IActionResult Index()
         {
             List<Category> categories = _unitOfWork.Category.GetAll().ToList();
-            return View(categories);
+            ViewBag.categorias = categories;    
+            return View();
         }
         [HttpGet]
 
@@ -30,7 +31,7 @@ namespace ECommerceSite.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Category emodel, IFormFile img)
+        public IActionResult Create(Category emodel, IFormFile? img)
         {
             var DataFromDB = _unitOfWork.Category.Get(u => u.CategoryName == emodel.CategoryName);
             if (DataFromDB != null) { 
@@ -78,6 +79,7 @@ namespace ECommerceSite.Controllers
         public IActionResult Edit(Category model, IFormFile? img)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string oldImagePath = Path.Combine(wwwRootPath, model.ImageUrl.TrimStart('\\'));
             if (img != null && img.Length > 0)
             {
                 string filename = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
@@ -88,7 +90,7 @@ namespace ECommerceSite.Controllers
                     // Update photo handling (combined and improved):
 
                     // Delete the old image (error handling included)
-                    string oldImagePath = Path.Combine(wwwRootPath, model.ImageUrl.TrimStart('\\'));
+                    
                     if (System.IO.File.Exists(oldImagePath))
                     {
                         try
@@ -127,20 +129,17 @@ namespace ECommerceSite.Controllers
 
                 return RedirectToAction("Index");
             }
+
+        }
             else
             {
-                filename = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
-                categoryPath = Path.Combine(wwwRootPath, @"images\category\");
-               using (var fileStream = new FileStream(Path.Combine(categoryPath, filename), FileMode.Create))
-                    {
-                       img.CopyTo(fileStream);
-                    }
-                    model.ImageUrl = @"\images\category\" + filename;
+                    
+                model.ImageUrl= oldImagePath.ToString();
                     _unitOfWork.Category.Update(model);
                     _unitOfWork.Save();
                     return RedirectToAction("Index");
                 }
-        }
+            
             // Re-render the view with validation errors (if any)
             return View(model);
         }

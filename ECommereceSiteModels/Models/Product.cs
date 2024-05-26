@@ -20,7 +20,7 @@ namespace ECommereceSiteModels.Models
 
         public string discountRate {  get; set; }
 
-       
+        [ValidateNever]
         public string ImageUrl {  get; set; }=string.Empty;
 
         public int quantity { get; set; }

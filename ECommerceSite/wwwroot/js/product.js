@@ -7,13 +7,13 @@ function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url: '/product/getall' },
         "columns": [
-            { data: 'productName', "width": "25%" },
+            { data: 'productName', "width": "15%" },
             { data: 'description', "width": "15%" },
             { data: 'price', "width": "15%" },
             { data: 'discountRate', "width": "15%" },
             { data: 'imageUrl', "width": "15%" },
             { data: 'quantity', "width": "15%" },
-            { data: 'categoryId', "width": "15%" },
+            { data: 'category.categoryName', "width": "15%" },
             {
                 data: 'id',
                 "render": function (data) {

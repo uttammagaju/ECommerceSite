@@ -1,76 +1,69 @@
-﻿@* @model Category
+﻿@model Product
 
-<div class="card shadow border-0 mt-4">
+<div class="card shadow border-0 col-8 mt-4  m-auto">
     <div class="card-header bg-primary m-lg-0 py-3">
         <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white">Edit Category</h2>
+            <div class="col-10 text-center">
+                <h2 class="text-white">Update Product</h2>
             </div>
         </div>
     </div>
-    <div class="card-body py-2">
-        <form method="post" class="row" enctype="multipart/form-data">
+    <div class="card-body  py-2">
+        <form  method="post" class="row" enctype="multipart/form-data">
             <input asp-for="Id" hidden />
-
             <input asp-for="ImageUrl" hidden />
-
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3">
                         <div class=" mb-3 row">
-                            <label asp-for="CategoryName" class="ms-2 ">Title</label>
-                            <input asp-for="CategoryName" class="form-control border-0 shadow" />
-                            <span asp-validation-for="CategoryName" class="text-danger"></span>
-                        </div>
-                        
-                        <div class=" mb-3 row">
-                            <label asp-for="ImageUrl" class="ms-2 ">Image Url</label>
-                            <input type="file" name="img" class=" form-control border-0 shadow" />
-                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
-
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-6 col-md-3">
-                               
-                                    <button type="submit" class="btn btn-outline-success form-control">Update</button>
-                              
-                            </div>
-                            <div class=" col-6 col-md-3">
-                                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary form-control">Back To List</a>
-                            </div>
-                        </div>
-                    </div>
+                <label asp-for="ProductName" class="ms-2">Product Name</label>
+                <input asp-for="ProductName" class="form-control border-0 shadow" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="Description" class="ms-2">Description</label>
+                <input asp-for="Description" class="form-control border-0 shadow" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="Price" class="ms-2">Price</label>
+                <input asp-for="Price" class="form-control border-0 shadow" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="discountRate" class="ms-2">Discounted Rate</label>
+                <input asp-for="discountRate" class="form-control border-0 shadow" />
+                <span asp-validation-for="discountRate" class="text-danger"></span>
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="ImageUrl" class="ms-2">Image Url</label>
+                <input type="file" name="img" class="form-control border-0 shadow" />
+            </div>
+            <div class="mb-3 row">
+                <label asp-for="@Model.CategoryId" class="ms-2"></label>
+                <select asp-for="CategoryId" asp-items="ViewBag.categoryList" class="form-select box-shadow">
+                    <option disabled selected>--Select Category--</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-outline-primary form-control">Update</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary form-control">Back To List</a>
+                </div>
+                </div>
+                </div>
                 </div>
                 <div class="col-2">
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <img src="@Model.ImageUrl" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9" />
-                    }
-                </div>
+                    <img src="@Model.ImageUrl" width="100%" style="border-radius: 5px; border: 1px solid #bbb9b9" />
+               </div>
             </div>
-
         </form>
     </div>
 </div>
 
-@section scripts {
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-            tinycomments_mode: 'embedded',
-            tinycomments_author: 'Author name',
-            mergetags_list: [
-                { value: 'First.Name', title: 'First Name' },
-                { value: 'Email', title: 'Email' },
-            ],
-            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-        });
-    </script>
-    @{
-        <partial name="_ValidationScriptsPartial" />
-
-    }
-} *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
