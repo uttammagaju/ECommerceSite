@@ -4,6 +4,7 @@ using ECommereceSiteData.Repository.IRepository;
 using ECommereceSiteModels.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace ECommerceSite.Controllers
 {
@@ -79,6 +80,7 @@ namespace ECommerceSite.Controllers
         public IActionResult Edit(Category model, IFormFile? img)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string oldImage = model.ImageUrl;
             string oldImagePath = Path.Combine(wwwRootPath, model.ImageUrl.TrimStart('\\'));
             if (img != null && img.Length > 0)
             {
@@ -134,7 +136,7 @@ namespace ECommerceSite.Controllers
             else
             {
                     
-                model.ImageUrl= oldImagePath.ToString();
+                model.ImageUrl= oldImage;
                     _unitOfWork.Category.Update(model);
                     _unitOfWork.Save();
                     return RedirectToAction("Index");

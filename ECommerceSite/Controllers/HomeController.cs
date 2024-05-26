@@ -19,7 +19,8 @@ namespace ECommerceSite.Controllers
 
         public IActionResult Index()
         {
-            //List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            List<Category> categories = _unitOfWork.Category.GetAll().ToList();
+            ViewBag.categories = categories;
             return View();
         }
 

@@ -49,79 +49,52 @@
 </div>
 </section>
 
-<section class="pt-5 pb-5" id="feature_Product">
+<section class=" card pt-5 pb-5" id="feature_Product">
     <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-    <div class="container">
-        <div class="row">
-    <div class="col-6">
-        <h3 class="mb-3">Carousel cards title </h3>
-    </div>
-    </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="card-wrapper container-sm d-flex  justify-content-around">
-      <div class="card rounded-5 " style="width: 18rem;">
-          <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-          <div class="card-body">
-                                <h4 class="card-title">Special title treatment</h4>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-
-    
-          </div>
-       </div>
-<div class="card" style="width: 18rem;">
-  <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-  <div class="card-body">
-                        <h4 class="card-title">Special title treatment</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    
-  </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="mb-3">Category</h3>
+                </div>
+            </div>
+            <div class="carousel-inner">
+                @{
+                    int itemsPerSlide = 6;
+                    int totalItems = categories.Count;
+                    int slideCount = (totalItems + itemsPerSlide - 1) / itemsPerSlide;
+                    for (int i = 0; i < slideCount; i++)
+                    {
+                        bool isActive = i == 0;
+                        <div class="carousel-item @(isActive ? "active" : "")">
+                            <div class="card-wrapper container-sm d-flex justify-content-around ">
+                                @for (int j = 0; j < itemsPerSlide; j++)
+                                {
+                                    int index = i * itemsPerSlide + j;
+                                    if (index < totalItems)
+                                    {
+                                        <div class="card " style="width: 12rem; ">
+                                            <img src="@categories[index].ImageUrl" class="card-img-top" alt="@categories[index].CategoryName">
+                                            <div class="card-body">
+                                                <h4 class="card-title">@categories[index].CategoryName</h4>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <div class="card" style="width: 18rem;">
-  <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-  <div class="card-body">
-                        <h4 class="card-title">Special title treatment</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-  </div>
-</div>
-</div>
     </div>
-    <div class="carousel-item">
-      <div class="card-wrapper container-sm d-flex   justify-content-around">
-      <div class="card  " style="width: 18rem;">
-  <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-  <div class="card-body">
-                        <h4 class="card-title">Special title treatment</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    
-  </div>
-</div><div class="card" style="width: 18rem;">
-  <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-  <div class="card-body">
-                        <h4 class="card-title">Special title treatment</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    
-  </div>
-        </div>
-        <div class="card" style="width: 18rem;">
-  <img src="https://source.unsplash.com/collection/190727/1600x900" class="card-img-top" alt="...">
-  <div class="card-body">
-                        <h4 class="card-title">Special title treatment</h4>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-  </div>
-</div>
-    </div>
-    </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-</div>
 </section>
 @* <div id="productCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
