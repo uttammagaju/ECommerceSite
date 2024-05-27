@@ -8,7 +8,6 @@ function loadDataTable() {
         "ajax": { url: '/product/getall' },
         "columns": [
             { data: 'productName', "width": "15%" },
-            { data: 'description', "width": "15%" },
             { data: 'price', "width": "15%" },
             { data: 'discountRate', "width": "15%" },
             { data: 'imageUrl', "width": "15%" },
