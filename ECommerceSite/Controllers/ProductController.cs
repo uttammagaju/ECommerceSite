@@ -47,7 +47,7 @@ namespace ECommerceSite.Controllers
                     {
                         img.CopyTo(fileStream);
                     }
-                    emodel.ImageUrl = @"\images\product" + filename;
+                    emodel.ImageUrl = @"\images\product\" + filename;
                 }
                 _unitOfWork.Product.Add(emodel);
                 _unitOfWork.Save();

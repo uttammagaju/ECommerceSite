@@ -21,7 +21,15 @@ namespace ECommerceSite.Controllers
         {
             List<Category> categories = _unitOfWork.Category.GetAll().ToList();
             ViewBag.categories = categories;
-            return View();
+            return View(categories);
+        }
+        [HttpGet]
+        public IActionResult CategoryWiseProducts(int categoryId)
+        {
+            List<Product> product = _unitOfWork.Product.GetAll().Where(x=>x.CategoryId == categoryId).ToList();
+            var category = _unitOfWork.Category.Get(c => c.Id == categoryId);
+            ViewBag.CategoryName = category?.CategoryName;
+            return View(product);
         }
 
         public IActionResult Privacy()
