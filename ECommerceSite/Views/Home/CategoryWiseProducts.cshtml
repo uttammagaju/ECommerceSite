@@ -10,16 +10,24 @@
     <div class="row">
         @foreach (var product in Model)
         {
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    <img src="@product.ImageUrl" class="card-img-top" alt="@product.ProductName">
-                    <div class="card-body">
-                        <h6 class="card-title">@product.ProductName</h6>
-                        <p class="card-text"> Rs: @product.Price</p>
+            <div class="col-md-3 ">
+                <div class="card mb-4 card-hover" style="height: 30rem;">
+                    <!-- Set the specific height for the card -->
+                    <img src="@product.ImageUrl" class="card-img-top " style="object-fit:contain; height:18rem;" alt="@product.ProductName">
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title text-truncate-2">@product.ProductName</h6>
+                        <p class="card-text">$: @product.Price</p>
+                        <p class="card-text">Offered Price $: @product.discountRate</p>
+                        <div class="mt-auto">
+                            <a asp-action="ProductDetails" asp-route-productId="@product.Id" class="btn btn-primary bg-gradient border-0 form-control">Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
+
+
 

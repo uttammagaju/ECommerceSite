@@ -31,7 +31,11 @@ namespace ECommerceSite.Controllers
             ViewBag.CategoryName = category?.CategoryName;
             return View(product);
         }
-
+        public IActionResult ProductDetails(int productId)
+        {
+            var product = _unitOfWork.Product.Get(c => c.Id == productId);
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();
