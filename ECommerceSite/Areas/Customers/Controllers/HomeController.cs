@@ -4,8 +4,9 @@ using ECommereceSiteModels.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace ECommerceSite.Controllers
+namespace ECommerceSite.Areas.Customers.Controllers
 {
+    [Area("Customers")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -31,7 +32,11 @@ namespace ECommerceSite.Controllers
             ViewBag.CategoryName = category?.CategoryName;
             return View(product);
         }
-
+        public IActionResult ProductDetails(int productId)
+        {
+            var product = _unitOfWork.Product.Get(c => c.Id == productId);
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();

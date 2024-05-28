@@ -14,13 +14,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
-                <img src="~/images/slider/006050c4-178d-491c-8e8f-03103775e294.jpg" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" />        
+                <img src="~/images/slider/006050c4-178d-491c-8e8f-03103775e294.jpg" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"  />        
         </div>
         <div class="carousel-item" data-bs-interval="2000">
-                <img src="~/images/slider/02e9dcc1-a619-4fd2-87d8-5bd7b3fdf950.jpg" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" />
+                <img src="~/images/slider/02e9dcc1-a619-4fd2-87d8-5bd7b3fdf950.jpg" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"  />
         </div>
         <div class="carousel-item">
-                <img src="~/images/slider/dbfad525506fca03e512f974f9f7f631.png" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" />
+                <img src="~/images/slider/dbfad525506fca03e512f974f9f7f631.png" alt="Alternate Text" class="bd-placeholder-img bd-placeholder-img-lg d-block w-100"  />
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
@@ -57,9 +57,9 @@
                                     int index = i * itemsPerSlide + j;
                                     if (index < totalItems)
                                     {
-                                        <div class="card " style="width: 10rem;">
+                                        <div class="card card-hover" style="width: 10rem;">
                                             <a asp-action="CategoryWiseProducts" asp-route-categoryId="@categories[index].Id" class="link text-dark text-decoration-none">
-                                            <img src="@categories[index].ImageUrl" class="card-img-top" alt="@categories[index].CategoryName" >
+                                            <img src="@categories[index].ImageUrl" class="card-img-top d-block " alt="@categories[index].CategoryName" >
                                             <div class="card-body p-1">
                                                 <h4 class="card-title text-center m-0">@categories[index].CategoryName</h4>
                                                 </div>
@@ -72,7 +72,7 @@
                     }
                 }
             </div>
-            @* <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+           @*  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
