@@ -1,5 +1,7 @@
-﻿using ECommereceSiteData.Repository.IRepository;
+﻿using ECommerceSiteUtiltiy;
+using ECommereceSiteData.Repository.IRepository;
 using ECommereceSiteModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client;
@@ -7,6 +9,8 @@ using Microsoft.Identity.Client;
 namespace ECommerceSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
+
     public class ProductController : Controller
     {
         protected readonly IUnitOfWork _unitOfWork;
