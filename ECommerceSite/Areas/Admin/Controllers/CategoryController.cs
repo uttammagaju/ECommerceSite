@@ -1,7 +1,9 @@
-﻿using ECommereceSiteData.Data;
+﻿using ECommerceSiteUtiltiy;
+using ECommereceSiteData.Data;
 using ECommereceSiteData.Repository;
 using ECommereceSiteData.Repository.IRepository;
 using ECommereceSiteModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
@@ -9,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 namespace ECommerceSite.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
