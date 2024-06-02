@@ -1,4 +1,5 @@
-﻿using ECommereceSiteModels.Models;
+﻿using ECommereceSiteModels;
+using ECommereceSiteModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace ECommereceSiteData.Repository.IRepository
 {
-    public interface IApplictionUserRepository: IRepository<Category>
+    public interface IApplicationUserRepository: IRepository<ApplicationUser>
     {
-        void Update(Category obj);
+
     }
 }

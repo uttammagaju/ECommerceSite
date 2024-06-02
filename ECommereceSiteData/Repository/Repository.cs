@@ -57,9 +57,13 @@ namespace ECommereceSiteData.Repository
         //IEnumerable<T> represents an interface that allows you to iterate over the
         //elements in the collection, but it doesn't guarantee any specific order or
         //the ability to modify the elements.
-        public IEnumerable<T> GetAll(string? includeProperties = null)
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbSet;
+            if(filter != null)
+            {
+                query = query.Where(filter);
+            }
             if (!string.IsNullOrEmpty(includeProperties))
             {
                 foreach (var includeProp in includeProperties

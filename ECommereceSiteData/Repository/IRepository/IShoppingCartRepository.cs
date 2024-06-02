@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ECommereceSiteData.Repository.IRepository
 {
-    public interface IApplictionUserRepository: IRepository<Category>
+    public interface IShoppingCartRepository: IRepository<ShoppingCart>
     {
-        void Update(Category obj);
+        void Update(ShoppingCart obj);
     }
 }
