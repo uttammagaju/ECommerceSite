@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace ECommereceSiteData.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class OrderHeaderRepository : Repository<OrderHeader>, IOrderHeaderRepository
     {
         private ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db) : base(db) //: base(db): This part indicates that the CategoryRepository
+        public OrderHeaderRepository(ApplicationDbContext db) : base(db) //: base(db): This part indicates that the CategoryRepository
         //class inherits from a base class and calls the base class constructor during object creation. The base(db) syntax passes
         //the received db argument to the base class constructor.
         {
             _db = db;
         }
-        public void Update(Category obj)
+        public void Update(OrderHeader obj)
         {
             _db.Update(obj);
            

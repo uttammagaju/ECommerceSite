@@ -175,15 +175,20 @@ namespace ECommerceSite.Areas.Admin.Controllers
             //        return View(model); // Re-render view with error message
             //    }
             //}
+            
             var productToBeDelete = _unitOfWork.Product.Get(u=>u.CategoryId == id);
             var categoryToBeDelete = _unitOfWork.Category.Get(u=>u.Id == id);
 
+            if(productToBeDelete != null)
+            {
+                string productpath = wwwRootPath + productToBeDelete.ImageUrl;
+                System.IO.File.Delete(productpath);
+            }
             string categorypath = wwwRootPath + categoryToBeDelete.ImageUrl;
-            string productpath = wwwRootPath + productToBeDelete.ImageUrl;
 
             // string oldImagePath = Path.Combine(wwwRootPath, categoryToBeDelete.ImageUrl);
             System.IO.File.Delete(categorypath);
-            System.IO.File.Delete(productpath);
+            
             _unitOfWork.Category.Remove(categoryToBeDelete);
             _unitOfWork.Save();
             List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();

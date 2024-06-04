@@ -166,8 +166,15 @@ namespace ECommerceSite.Areas.Identity.Pages.Account
                 user.Email = Input.Email;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.PostalCode = Input.PostalCode;
-                user.City = user.City;
-                user.State = user.State;
+                user.StreetAddress = Input.StreetAddress;
+                user.City = Input.City;
+                user.State = Input.State;
+
+                if (Input.Role == SD.Role_Company)
+                {
+                    user.CompanyId = Input.CompanyId;
+                }
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
