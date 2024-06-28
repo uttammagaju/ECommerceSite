@@ -12,7 +12,7 @@ namespace ECommereceSiteModels.Models
 {
     public class OrderHeader
     {
-
+        [Key]
         public int Id { get; set; }
         public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
@@ -29,6 +29,7 @@ namespace ECommereceSiteModels.Models
         public DateTime PaymentData { get; set; }
         public DateOnly PaymentDueDate { get; set; }
 
+        public string?  SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
 
         [Required]
