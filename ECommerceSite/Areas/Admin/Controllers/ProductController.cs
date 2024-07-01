@@ -56,6 +56,7 @@ namespace ECommerceSite.Areas.Admin.Controllers
                 }
                 _unitOfWork.Product.Add(emodel);
                 _unitOfWork.Save();
+                TempData["success"] = "Product Create Successful";
                 return RedirectToAction("Index");
             }
             IEnumerable<SelectListItem> categoryList = _unitOfWork.Category.GetAll().Select(
@@ -88,17 +89,17 @@ namespace ECommerceSite.Areas.Admin.Controllers
                    Text = u.CategoryName,
                    Value = u.Id.ToString()
                });
-             ViewBag.categoryList = categoryList;
+            ViewBag.categoryList = categoryList;
 
             return View(product); // Ensure that the Product object is being passed here
-            
+
         }
         [HttpPost]
         public IActionResult Edit(Product model, IFormFile? img)
         {
-            
+
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            string oldimg= model.ImageUrl;
+            string oldimg = model.ImageUrl;
             if (img != null && img.Length > 0)
             {
                 // Update photo handling (combined and improved):
@@ -144,20 +145,21 @@ namespace ECommerceSite.Areas.Admin.Controllers
 
                     // Update product in database (assuming _unitOfWork.product is a repository):
                     _unitOfWork.Product.Update(model);
-
+                    TempData["success"] = "Product Update Successful";
                     _unitOfWork.Save();
 
                     return RedirectToAction("Index");
                 }
             }
-                else
-                {
-                    
-                    model.ImageUrl = oldimg.ToString();   
-                    _unitOfWork.Product.Update(model);
-                    _unitOfWork.Save();
-                    return RedirectToAction("Index");
-                }
+            else
+            {
+
+                model.ImageUrl = oldimg.ToString();
+                _unitOfWork.Product.Update(model);
+                TempData["success"] = "Product Update Successful";
+                _unitOfWork.Save();
+                return RedirectToAction("Index");
+            }
 
             // Re-render the view with validation errors (if any)
             return View(model);
@@ -171,12 +173,12 @@ namespace ECommerceSite.Areas.Admin.Controllers
         public IActionResult GetAll()
         {
             List<Product> objFromDb = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new {data = objFromDb});
+            return Json(new { data = objFromDb });
         }
         public IActionResult Delete(int? id)
         {
             string wwwRootPath = _webHostEnvironment.WebRootPath;
-            var productToBeDelete = _unitOfWork.Product.Get(u =>u.Id==id);
+            var productToBeDelete = _unitOfWork.Product.Get(u => u.Id == id);
             string path = wwwRootPath + productToBeDelete.ImageUrl;
             if (System.IO.File.Exists(path))
             {
@@ -192,7 +194,7 @@ namespace ECommerceSite.Areas.Admin.Controllers
             }
             _unitOfWork.Product.Remove(productToBeDelete);
             _unitOfWork.Save();
-            return Json(new {data = productToBeDelete});
+            return Json(new { data = productToBeDelete });
         }
         #endregion
     }
